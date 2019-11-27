@@ -1,0 +1,16 @@
+== hg help file ==
+
+-- List of functions
+	ins - Paste text to the selected region
+	info - Get information about the status of the editor
+	help - Call this help
+	pr - To print the region on the screen
+	reg <start> <end> - Creating a region within the buffer, beginning with the <start> and ending at <end>
+	wr <dst> - Write characters from buffer to <dst> file
+	ld <src> - Load characters from <src> file to clipboard
+	fill <c> - Fill the selected region with <c> characters
+	rub - Fill the selected region with space characters
+
+---
+27.11.2019 by Centrix
+
