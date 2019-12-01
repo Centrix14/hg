@@ -151,3 +151,49 @@ void rub(char *arg) {
 		set_buffer_c(get_start_pos()+i, ' ');
 	}
 }
+
+void gt(char *arg) {
+	char *args[] = {"start", "first", "last", "end"};
+	enum argi {START, FIRST, LAST, END};
+	static int state = 0;
+	int i = 0, j = 0, arr_index = 0;
+
+	if (!state) {
+		state = 1;
+		return;
+	}
+
+	for (i = 0; i < 4; i++) {
+		if (!strcmp(args[i], arg)) {
+			arr_index = i;
+			break;
+		}
+	}
+
+	if (!arr_index && i) {
+		fprintf(stderr, "unknown option `%s`\n", arg);
+		return;
+	}
+	
+	switch (arr_index) {
+		case START: 
+			set_start_pos(0);
+		break;
+
+		case FIRST:
+			while (!is_valid_char(get_buffer_c(j))) j++;
+			set_start_pos(j);
+		break;
+
+		case LAST:
+			j = 0;
+			while (is_valid_char(get_buffer_c(j))) j++;
+			set_start_pos(j);
+		break;
+
+		case END:
+		set_start_pos(get_len());
+		break;
+	}
+	state = 0;
+}

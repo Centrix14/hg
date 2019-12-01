@@ -10,7 +10,12 @@
 	ld <src> - Load characters from <src> file to clipboard
 	fill <c> - Fill the selected region with <c> characters
 	rub - Fill the selected region with space characters
+	gt <pos> - The transition in one of the following positions in the buffer: 
+		`start` - go to beginning of buffer
+		`first` - jump to first character in the text
+		`last` - jump to the last character in the text 
+		`end` - move to end of buffer
 
 ---
-27.11.2019 by Centrix
+01.12.2019 by Centrix
 

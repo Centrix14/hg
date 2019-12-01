@@ -10,5 +10,6 @@ void wr(char *arg);
 void ld(char *arg);
 void fill(char *arg);
 void rub(char *arg);
+void gt(char *arg);
 
 #endif

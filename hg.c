@@ -1,7 +1,7 @@
 /*
  * hg -- Hydrargyrum command console text editor
- * v0.2
- * 27.11.2019
+ * v0.3
+ * 01.12.2019
  * by Centrix
 */
 
@@ -11,13 +11,13 @@
 #include "global_vars.h"
 #include "funcs.h"
 
-#define LEN 9 
+#define LEN 10 
 
 int find(char *arr[], char *obj, int len);
 
 int main(void) {
-	char *cmnds[] = {"ins", "info", "help", "pr", "reg", "wr", "ld", "fill", "rub"};
-	void (*funcs[])(char *arg) = {ins, info, help, pr, reg, wr, ld, fill, rub};
+	char *cmnds[] = {"ins", "info", "help", "pr", "reg", "wr", "ld", "fill", "rub", "gt"};
+	void (*funcs[])(char *arg) = {ins, info, help, pr, reg, wr, ld, fill, rub, gt};
 	char input[256] = "";
 	char *tok;
 	int is_cmnd = 0, arr_index = 0;
