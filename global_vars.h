@@ -10,5 +10,6 @@ void set_buffer_c(int buf_index, int c);
 
 int get_len();
 void set_len(int val);
+int get_buf_len();
 
 #endif

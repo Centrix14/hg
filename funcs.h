@@ -11,5 +11,6 @@ void ld(char *arg);
 void fill(char *arg);
 void rub(char *arg);
 void gt(char *arg);
+void add(char *arg);
 
 #endif

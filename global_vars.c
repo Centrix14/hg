@@ -1,4 +1,4 @@
-#define BUF_LEN 2048
+#define BUF_LEN 1048576
 
 int len = BUF_LEN, start_pos = 0;
 char buffer[BUF_LEN];
@@ -29,4 +29,8 @@ int get_len() {
 
 void set_len(int val) {
 	len = val;
+}
+
+int get_buf_len() {
+	return BUF_LEN;
 }

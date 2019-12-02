@@ -156,7 +156,7 @@ void gt(char *arg) {
 	char *args[] = {"start", "first", "last", "end"};
 	enum argi {START, FIRST, LAST, END};
 	static int state = 0;
-	int i = 0, j = 0, arr_index = 0;
+	int i = 0, j = 0, arr_index = 0, out = 0;
 
 	if (!state) {
 		state = 1;
@@ -183,17 +183,33 @@ void gt(char *arg) {
 		case FIRST:
 			while (!is_valid_char(get_buffer_c(j))) j++;
 			set_start_pos(j);
+			out = j;
 		break;
 
 		case LAST:
 			j = 0;
 			while (is_valid_char(get_buffer_c(j))) j++;
 			set_start_pos(j);
+			out = j;
 		break;
 
 		case END:
-		set_start_pos(get_len());
+		set_start_pos(get_buf_len());
+		out = get_buf_len();
 		break;
 	}
+	
 	state = 0;
+
+	printf("%d\n", out);
+}
+
+void add(char *arg) {
+	int i = 0;
+
+	while (is_valid_char(get_buffer_c(i))) i++;
+	set_start_pos(i);
+	set_len(get_buf_len()-i);
+
+	ins("");
 }
