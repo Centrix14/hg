@@ -4,6 +4,7 @@
 #include <string.h>
 #include "global_vars.h"
 #include "coniox/coniox.h"
+#include "mico.h"
 
 int is_valid_char(int c) {
 	return (isprint(c) || isspace(c));
@@ -11,9 +12,11 @@ int is_valid_char(int c) {
 
 void ins(char *arg) {
 	int c = 0, i = 0, pos = get_start_pos(), len = get_len();
+	int line = 1;
 
+	printf("1~ ");
 	while (c != 27 && i < len) {
-		if (is_valid_char(c)) {
+		if (is_valid_char(c) && c != 10) {
 			putc(c, stdout);
 			set_buffer_c(pos+i, c);
 			i++;
@@ -27,6 +30,12 @@ void ins(char *arg) {
 						printf("\b \b");
 						set_buffer_c(pos+i, 0);
 					}
+				break;
+				case 10:
+					set_buffer_c(pos+i, '\n');
+					line++;
+					i++;
+					printf("\n%d~ ", line);
 				break;
 			}
 		}
@@ -212,4 +221,61 @@ void add(char *arg) {
 	set_len(get_buf_len()-i);
 
 	ins("");
+}
+
+void pra(char *arg) {
+	int c = 0, i = 0;
+	int x = 0, y = 0;
+	int line = 1;
+
+	clean();
+
+	printf("1~ ");
+	while (is_valid_char(get_buffer_c(i))) {
+		if (get_buffer_c(i) == '\n') {
+			setColor(BLACK, WHITE, NORMAL);
+			printf("\n%d~ ", line++);
+		}
+
+		else {
+			hl(get_buffer_c(i));
+			putc(get_buffer_c(i), stdout);
+		}
+		i++;
+	}
+
+	mvCursor(0, 0);
+
+	while (c != 27) {
+		switch (c) {
+			case 'w': ;
+			case 'k':
+				y--;
+				mvCursor(x, y);
+			break;
+
+			case 'a': ;
+			case 'h':
+				x--;
+				mvCursor(x, y);
+			break;
+
+			case 's': ;
+			case 'j':
+				y++;
+				mvCursor(x, y);
+			break;
+
+			case 'd': ;
+			case 'l':
+				x++;
+				mvCursor(x, y);
+			break;
+		}
+
+		c = readKb();
+	}
+	
+	setColor(BLACK, WHITE, NORMAL);
+	clean();
 }
