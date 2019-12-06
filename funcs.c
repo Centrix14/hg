@@ -224,7 +224,7 @@ void add(char *arg) {
 }
 
 void pra(char *arg) {
-	int c = 0, i = 0;
+	int c = 0, i = 0, j = 0, shift = 0;
 	int x = 0, y = 0;
 	int line = 1;
 
@@ -234,7 +234,7 @@ void pra(char *arg) {
 	while (is_valid_char(get_buffer_c(i))) {
 		if (get_buffer_c(i) == '\n') {
 			setColor(BLACK, WHITE, NORMAL);
-			printf("\n%d~ ", line++);
+			printf("\n%d~ ", ++line);
 		}
 
 		else {
@@ -271,6 +271,36 @@ void pra(char *arg) {
 				x++;
 				mvCursor(x, y);
 			break;
+
+			case '0':
+				x = 0;
+				mvCursor(x, y);
+			break;
+
+			case 'q':
+				x--;
+				y--;
+				mvCursor(x, y);
+			break;
+
+			case 'e':
+				x++;
+				y--;
+				mvCursor(x, y);
+			break;
+
+			case 'z':
+				x--;
+				y++;
+				mvCursor(x, y);
+			break;
+
+
+			case 'c':
+				x++;
+				y++;
+				mvCursor(x, y);
+			break;
 		}
 
 		c = readKb();
@@ -278,4 +308,12 @@ void pra(char *arg) {
 	
 	setColor(BLACK, WHITE, NORMAL);
 	clean();
+}
+
+void hv(char *arg) {
+	for (int i = 0; i < get_len(); i++) {
+		printf("%x ", get_buffer_c(get_start_pos()+i));
+	}
+	
+	putc('\n', stdout);
 }

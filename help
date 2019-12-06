@@ -1,5 +1,7 @@
 == hg help file ==
 
+-- 05.12.2019 by Centrix --
+
 -- List of functions
 	ins - Paste text to the selected region
 	info - Get information about the status of the editor
@@ -15,7 +17,7 @@
 		`first` - jump to first character in the text
 		`last` - jump to the last character in the text 
 		`end` - move to end of buffer
+	pra - Advanced version of the pr command, supports line numbering, simple syntax highlighting and text navigation
+	hv - An analogue of the pr command that outputs 16-digit character codes
 
----
-01.12.2019 by Centrix
 
