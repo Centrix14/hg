@@ -332,13 +332,18 @@ void ldb(char *arg) {
 	}
 
 	src = fopen(arg, "r");
+	if (src == NULL) {
+		fprintf(stderr, "no such file `%s`\n", arg);
+		return ;
+	}
+
 	while (!feof(src)) {
 		fgetc(src);
 		i++;
 	}
 	fclose(src);
 
-	if (init_dbuf(i) == -1) {
+	if (init_dbuf(i*sizeof(char)) == -1) {
 		fprintf(stderr, "error with init dbuf\n");
 		exit(0);
 	}
@@ -362,6 +367,49 @@ void seb(char *arg) {
 	if (!strcmp(arg, "s")) use_dbuf(0);
 	else if (!strcmp(arg, "d")) use_dbuf(1);
 	else fprintf(stderr, "unknown argument\n");
+
+	state = 0;
+}
+
+void seek(char *arg) {
+	int coins_index = 0, i = 0;
+	int arg_len = strlen(arg);
+	static int state = 0;
+
+	if (!state) {
+		state = 1;
+		return ;
+	}
+
+	while (coins_index < arg_len && i < get_len()) {
+		if (get_buffer_c(i) == arg[coins_index]) coins_index++;
+		else coins_index = 0;
+		i++;
+	}
+
+	printf(": %d - %d\n", i-coins_index, i);
+
+	state = 0;
+}
+
+void sel(char *arg) {
+	int coins_index = 0, i = 0;
+	int arg_len = strlen(arg);
+	static int state = 0;
+
+	if (!state) {
+		state = 1;
+		return ;
+	}
+
+	while (coins_index < arg_len && i < get_len()) {
+		if (get_buffer_c(i) == arg[coins_index]) coins_index++;
+		else coins_index = 0;
+		i++;
+	}
+
+	set_start_pos(i-coins_index);
+	set_len(coins_index);
 
 	state = 0;
 }

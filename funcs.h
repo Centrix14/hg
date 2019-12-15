@@ -16,5 +16,7 @@ void pra(char *arg);
 void hv(char *arg);
 void ldb(char *arg);
 void seb(char *arg);
+void seek(char *arg);
+void sel(char *arg);
 
 #endif
