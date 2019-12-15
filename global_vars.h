@@ -12,4 +12,8 @@ int get_len();
 void set_len(int val);
 int get_buf_len();
 
+int init_dbuf(int size);
+void use_dbuf(int is_true);
+void free_buf();
+
 #endif

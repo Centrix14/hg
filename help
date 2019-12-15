@@ -1,6 +1,6 @@
 == hg help file ==
 
--- 05.12.2019 by Centrix --
+-- 15.12.2019 by Centrix --
 
 -- List of functions
 	ins - Paste text to the selected region
@@ -19,5 +19,8 @@
 		`end` - move to end of buffer
 	pra - Advanced version of the pr command, supports line numbering, simple syntax highlighting and text navigation
 	hv - An analogue of the pr command that outputs 16-digit character codes
-
+	ldb <file> - To upload a file to a dynamic buffer. The dynamic buffer can be stretched to the size of the downloaded file, but please note that if the file is too large, there may be problems with memory allocation.
+	seb <arg> - change the currently selected buffer to: 
+		`s` - static 
+		`d` - dynamic
 

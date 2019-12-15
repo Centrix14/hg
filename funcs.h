@@ -14,5 +14,7 @@ void gt(char *arg);
 void add(char *arg);
 void pra(char *arg);
 void hv(char *arg);
+void ldb(char *arg);
+void seb(char *arg);
 
 #endif

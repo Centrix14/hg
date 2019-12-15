@@ -14,10 +14,13 @@ void ins(char *arg) {
 	int c = 0, i = 0, pos = get_start_pos(), len = get_len();
 	int line = 1;
 
-	printf("1~ ");
+	printf("%4d| ", line);
 	while (c != 27 && i < len) {
 		if (is_valid_char(c) && c != 10) {
+			hl(c);
 			putc(c, stdout);
+			setColor(BLACK, WHITE, NORMAL);
+
 			set_buffer_c(pos+i, c);
 			i++;
 		}
@@ -35,7 +38,7 @@ void ins(char *arg) {
 					set_buffer_c(pos+i, '\n');
 					line++;
 					i++;
-					printf("\n%d~ ", line);
+					printf("\n%4d| ", line);
 				break;
 			}
 		}
@@ -230,11 +233,11 @@ void pra(char *arg) {
 
 	clean();
 
-	printf("1~ ");
+	printf("%4d| ", line);
 	while (is_valid_char(get_buffer_c(i))) {
 		if (get_buffer_c(i) == '\n') {
 			setColor(BLACK, WHITE, NORMAL);
-			printf("\n%d~ ", ++line);
+			printf("\n%4d| ", ++line);
 		}
 
 		else {
@@ -316,4 +319,49 @@ void hv(char *arg) {
 	}
 	
 	putc('\n', stdout);
+}
+
+void ldb(char *arg) {
+	FILE *src;
+	int i = 0;
+	static int state = 0;
+
+	if (!state) {
+		state = 1;
+		return ;
+	}
+
+	src = fopen(arg, "r");
+	while (!feof(src)) {
+		fgetc(src);
+		i++;
+	}
+	fclose(src);
+
+	if (init_dbuf(i) == -1) {
+		fprintf(stderr, "error with init dbuf\n");
+		exit(0);
+	}
+	use_dbuf(1);
+
+	ld("ld"); ld(arg);
+
+	printf(": %d\n", i);
+
+	state = 0;
+}
+
+void seb(char *arg) {
+	static int state = 0;
+
+	if (!state) {
+		state = 1;
+		return ;
+	}
+
+	if (!strcmp(arg, "s")) use_dbuf(0);
+	else if (!strcmp(arg, "d")) use_dbuf(1);
+	else fprintf(stderr, "unknown argument\n");
+
+	state = 0;
 }
