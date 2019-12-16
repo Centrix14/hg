@@ -16,7 +16,7 @@ void ins(char *arg) {
 
 	printf("%4d| ", line);
 	while (c != 27 && i < len) {
-		if (is_valid_char(c) && c != 10) {
+		if (is_valid_char(c) && (c != 10 && c != 13)) {
 			hl(c);
 			putc(c, stdout);
 			setColor(BLACK, WHITE, NORMAL);
@@ -34,6 +34,7 @@ void ins(char *arg) {
 						set_buffer_c(pos+i, 0);
 					}
 				break;
+				case 13: ;
 				case 10:
 					set_buffer_c(pos+i, '\n');
 					line++;
