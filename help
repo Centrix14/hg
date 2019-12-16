@@ -1,6 +1,6 @@
 == hg help file ==
 
--- 15.12.2019 by Centrix --
+-- 16.12.2019 by Centrix --
 
 -- List of functions
 	ins - Paste text to the selected region
@@ -23,4 +23,6 @@
 	seb <arg> - change the currently selected buffer to: 
 		`s` - static 
 		`d` - dynamic
-
+	seek <word> - search for the word <word> in the text, returns its coordinates
+	sel <word> - searches for the word <word> and sets it to the current region
+	inl <pos> - creates a inlay in the text starting at the <pos> coordinate

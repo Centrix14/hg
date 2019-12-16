@@ -68,8 +68,15 @@ void help(char *arg) {
 }
 
 void pr(char *arg) {
+	int is_inl = -1;
+
 	for (int i = 0; i < get_len(); i++) {
-		putc(get_buffer_c(get_start_pos()+i), stdout);
+		is_inl = is_inl_here(i);
+
+		if (is_inl >= 0)
+			printf("%s", get_inl_strs_elm(is_inl));
+		//else
+			putc(get_buffer_c(get_start_pos()+i), stdout);
 	}
 	printf("\n\nPrinted characters %d - %d\n", get_start_pos(), get_start_pos()+get_len());
 }
@@ -254,14 +261,18 @@ void pra(char *arg) {
 		switch (c) {
 			case 'w': ;
 			case 'k':
-				y--;
-				mvCursor(x, y);
+				if (y > 0) {
+					y--;
+					mvCursor(x, y);
+				}
 			break;
 
 			case 'a': ;
 			case 'h':
-				x--;
-				mvCursor(x, y);
+				if (x > 0) {
+					x--;
+					mvCursor(x, y);
+				}
 			break;
 
 			case 's': ;
@@ -282,21 +293,27 @@ void pra(char *arg) {
 			break;
 
 			case 'q':
-				x--;
-				y--;
-				mvCursor(x, y);
+				if (x > 0 && y > 0) {
+					x--;
+					y--;
+					mvCursor(x, y);
+				}
 			break;
 
 			case 'e':
-				x++;
-				y--;
-				mvCursor(x, y);
+				if (y > 0) {
+					x++;
+					y--;
+					mvCursor(x, y);
+				}
 			break;
 
 			case 'z':
-				x--;
-				y++;
-				mvCursor(x, y);
+			if (x > 0) {
+					x--;
+					y++;
+					mvCursor(x, y);
+				}
 			break;
 
 
@@ -411,6 +428,54 @@ void sel(char *arg) {
 
 	set_start_pos(i-coins_index);
 	set_len(coins_index);
+
+	state = 0;
+}
+
+void inl(char *arg) {
+	static int state = 0;
+	int i = 0, c = 0, line = 1;
+	char buf[256];
+
+	if (!state) {
+		state = 1;
+		return;
+	}
+
+	printf("%4d| ", line);
+	while (c != 27 && i < 256) {
+		if (is_valid_char(c) && (c != 10 && c != 13 && c != 27)) {
+			hl(c);
+			putc(c, stdout);
+			setColor(BLACK, WHITE, NORMAL);
+
+			buf[i++] = c;
+		}
+		else {
+			switch (c) {
+				case 8: ;
+				case 127:
+					if (i > 0) {
+						i--;
+						printf("\b \b");
+						buf[i] = 0;
+					}
+				break;
+				case 13: ;
+				case 10:
+					buf[i++] = '\n';
+					line++;
+					printf("\n%4d| ", line);
+				break;
+			}
+		}
+		
+		c = readKb();
+	}
+	buf[i] = '\0';
+	putc('\n', stdout);
+
+	inl_add(atoi(arg), buf);
 
 	state = 0;
 }

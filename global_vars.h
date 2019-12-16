@@ -16,4 +16,9 @@ int init_dbuf(int size);
 void use_dbuf(int is_true);
 void free_buf();
 
+char *get_inl_strs_elm(int elm);
+void inl_add(int index, char *str);
+int is_inl_here(int pos);
+void inl_init();
+
 #endif

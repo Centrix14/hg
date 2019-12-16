@@ -18,5 +18,6 @@ void ldb(char *arg);
 void seb(char *arg);
 void seek(char *arg);
 void sel(char *arg);
+void inl(char *arg);
 
 #endif
